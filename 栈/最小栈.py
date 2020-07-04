@@ -38,9 +38,7 @@
 #
 #  Related Topics 栈 设计
 
-
-
-# leetcode submit region begin(Prohibit modification and deletion)
+'''
 class MinStack:
 
     def __init__(self):
@@ -65,3 +63,25 @@ class MinStack:
                 min = i
 
         return min
+'''
+# 使用辅助栈
+import math
+class MinStack:
+
+    def __init__(self):
+        self.stack = []
+        self.min_stack = [math.inf]
+
+    def push(self, x: int) -> None:
+        self.stack.append(x)
+        self.min_stack.append(min(x, self.min_stack[-1]))
+
+    def pop(self) -> None:
+        self.stack.pop()
+        self.min_stack.pop()
+
+    def top(self, x:int) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        return self.min_stack[-1]
