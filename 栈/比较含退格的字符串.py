@@ -71,7 +71,7 @@ class Solution1:
 # 进阶,抄的
 import itertools
 
-class Solution(object):
+class Solution2(object):
     def backspaceCompare(self, S, T):
         def F(S):
             skip = 0
@@ -85,3 +85,34 @@ class Solution(object):
 
         return all(x == y for x, y in itertools.zip_longest(F(S), F(T)))
 
+# 朴素的进阶实现
+class Solution(object):
+    def backspaceCompare(self, S, T):
+        slen = len(S) -1
+        tlen = len(T) -1
+        while slen > -1 or tlen > -1:
+            curS = ''
+            curT = ''
+            skip = 0
+            tskip = 0
+            while slen > -1 and not curS:
+                if S[slen] != '#' and not skip:
+                    curS = S[slen]
+                elif S[slen] == "#":
+                    skip += 1
+                else:
+                    skip -= 1
+                slen -= 1
+
+            while tlen > -1 and not curT:
+                if T[tlen] != '#' and not tskip:
+                    curT = T[tlen]
+                elif T[tlen] == "#":
+                    tskip += 1
+                else:
+                    tskip -= 1
+                tlen -= 1
+
+            if curS != curT:
+                return False
+        return True
