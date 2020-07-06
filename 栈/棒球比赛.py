@@ -61,12 +61,7 @@ class Solution:
             else:
                 stack.append(int(x))
 
-        sum = 0
-        print(stack)
-        for x in stack:
-            sum += x
-
-        return sum
+        return sum(stack)
 
 s = Solution()
 print(s.calPoints(["5","-2","4","C","D","9","+","+"]))
