@@ -48,7 +48,7 @@
 #
 #  用 O(N) 的时间复杂度和 O(1) 的空间复杂度
 #
-class Solution:
+class Solution1:
     def backspaceCompare(self, S: str, T: str) -> bool:
         stack_s = []
         stack_t = []
@@ -67,4 +67,21 @@ class Solution:
         if ''.join(stack_s) == ''.join(stack_t):
             return True
         return False
+
+# 进阶,抄的
+import itertools
+
+class Solution(object):
+    def backspaceCompare(self, S, T):
+        def F(S):
+            skip = 0
+            for x in reversed(S):
+                if x == '#':
+                    skip += 1
+                elif skip:
+                    skip -= 1
+                else:
+                    yield x
+
+        return all(x == y for x, y in itertools.zip_longest(F(S), F(T)))
 
