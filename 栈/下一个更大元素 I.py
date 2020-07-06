@@ -38,7 +38,7 @@
 #  Related Topics 栈
 from typing import List
 
-class Solution:
+class Solution1:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
         results = []
         for num in nums1:
@@ -57,6 +57,27 @@ class Solution:
                     result = j
 
         return results
+
+
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        stack = []
+        result_dict = {}
+        result = []
+        for num in nums2:
+            while stack and num > stack[-1]:
+                result_dict[stack.pop()] = num
+
+            stack.append(num)
+
+        while stack:
+            result_dict[stack.pop()] = -1
+
+        for x in nums1:
+            result.append(result_dict.get(x))
+
+        return result
+
 
 s = Solution()
 print(s.nextGreaterElement([1,3,5,2,4], [6,5,4,3,2,1,7]))
