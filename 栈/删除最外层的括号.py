@@ -50,7 +50,7 @@
 #  S 是一个有效括号字符串
 #
 
-class Solution:
+class Solution1:
     def removeOuterParentheses(self, S: str) -> str:
         left = 0
         right = 0
@@ -73,6 +73,24 @@ class Solution:
                 stack = []
                 left = 0
                 right = 0
+        return result
+
+
+class Solution:
+    def removeOuterParentheses(self, S: str) -> str:
+        num = 0
+        result = ""
+        for x in S:
+
+            if x == "(":
+                num += 1
+                if num > 1:
+                    result += x
+            else:
+                num -= 1
+                if num > 0:
+                    result += x
+
         return result
 
 s = Solution()
