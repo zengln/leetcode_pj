@@ -42,7 +42,20 @@ class Solution:
             if root.right != None:
                 help(root.right, result)
 
-            return result
         return help(root, result)
 
 
+# 栈
+class Solution1:
+    def inorderTraversal(self, root: TreeNode) -> List[int]:
+        stack = []
+        result = []
+        while root or stack:
+            if root:
+                stack.append(root)
+                root = root.left
+            else:
+                tmp = stack.pop()
+                result.append(tmp.val)
+                root = tmp.right
+        return result
