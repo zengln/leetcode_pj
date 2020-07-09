@@ -41,6 +41,7 @@ class Solution:
 
             if root.right != None:
                 help(root.right, result)
+            return result
 
         return help(root, result)
 
