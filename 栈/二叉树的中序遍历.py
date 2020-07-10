@@ -60,3 +60,8 @@ class Solution1:
                 result.append(tmp.val)
                 root = tmp.right
         return result
+
+# 栈
+class Solution2:
+    def inorderTraversal(self, root: TreeNode) -> List[int]:
+        pass

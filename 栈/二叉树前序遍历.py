@@ -49,7 +49,7 @@ class Solution:
 
 
 # 递归
-class Solution:
+class Solution1:
     def preorderTraversal(self, root: TreeNode) -> List[int]:
         result = []
 
@@ -59,12 +59,35 @@ class Solution:
 
             result.append(root.val)
 
-            if root.left:
-                help(root.left, result)
+            help(root.left, result)
 
-            if root.right:
-                help(root.right, result)
+            help(root.right, result)
 
             return result
 
         return help(root, result)
+
+
+# 迭代
+class Solution2:
+    def preorderTraversal(self, root: TreeNode) -> List[int]:
+        result = []
+        if not root:
+            return result
+
+        stack = [root]
+        # 标识二次进栈
+        flag = False
+        while stack:
+            tmp = stack.pop()
+            if tmp != flag:
+                if tmp.right:
+                    stack.append(tmp.right)
+                if tmp.left:
+                    stack.append(tmp.left)
+                stack.append(tmp)
+                stack.append(flag)
+            else:
+                result.append(stack.pop().val)
+        return result
+
