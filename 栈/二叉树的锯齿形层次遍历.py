@@ -60,10 +60,8 @@ class Solution:
                 result.append(tmp_result)
                 tmp_result = []
                 tmp_stack = []
-                while stack2:
-                    tmp_stack.append(stack2.pop())
-                while tmp_stack:
-                    stack1.append(tmp_stack.pop())
+                stack1 = stack2
+                stack2 = []
         return result
 
 
