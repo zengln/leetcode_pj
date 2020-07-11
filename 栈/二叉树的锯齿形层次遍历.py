@@ -35,33 +35,35 @@ class Solution:
         result = []
         if not root:
             return result
-
         stack1 = [root]
         stack2 = []
-        tmp_result = []
         flag = False
+        tmp_result = []
         while stack1:
-            tmp = stack1.pop()
-            tmp_result.append(tmp.val)
+            root = stack1.pop()
+            tmp_result.append(root.val)
             if flag:
-                if tmp.left:
-                    stack2.append(tmp.left)
+                if root.right:
+                    stack2.append(root.right)
 
-                if tmp.right:
-                    stack2.append(tmp.right)
+                if root.left:
+                    stack2.append(root.left)
             else:
-                if tmp.right:
-                    stack2.append(tmp.right)
+                if root.left:
+                    stack2.append(root.left)
 
-                if tmp.left:
-                    stack2.append(tmp.left)
+                if root.right:
+                    stack2.append(root.right)
 
             if not stack1:
+                flag = bool(1-flag)
                 result.append(tmp_result)
                 tmp_result = []
+                tmp_stack = []
                 while stack2:
-                    stack1.append(stack2.pop())
-                flag = bool(1 - flag)
+                    tmp_stack.append(stack2.pop())
+                while tmp_stack:
+                    stack1.append(tmp_stack.pop())
         return result
 
 
