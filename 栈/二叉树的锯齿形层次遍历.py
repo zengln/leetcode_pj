@@ -59,7 +59,6 @@ class Solution:
                 flag = bool(1-flag)
                 result.append(tmp_result)
                 tmp_result = []
-                tmp_stack = []
                 stack1 = stack2
                 stack2 = []
         return result
