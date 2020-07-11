@@ -37,6 +37,25 @@ class TreeNode:
 
 class BSTIterator:
 
+    # def __init__(self, root: TreeNode):
+    #     self.result = []
+    #     if root:
+    #         stack = [root]
+    #         flag = False
+    #         while stack:
+    #             tmp = stack.pop()
+    #             if tmp == flag:
+    #                 self.result.append(stack.pop().val)
+    #             else:
+    #                 if tmp.right:
+    #                     stack.append(tmp.right)
+    #                 if tmp.left:
+    #                     stack.append(tmp.left)
+    #                 stack.append(tmp)
+    #                 stack.append(flag)
+    #         self.result.sort(reverse=True)
+
+    # 二叉搜索树为特殊二叉树, 左节点恒比根节点小, 右节点恒比根节点大,使用中序遍历可得从小到大排序数组
     def __init__(self, root: TreeNode):
         self.result = []
         if root:
@@ -49,11 +68,11 @@ class BSTIterator:
                 else:
                     if tmp.right:
                         stack.append(tmp.right)
-                    if tmp.left:
-                        stack.append(tmp.left)
                     stack.append(tmp)
                     stack.append(flag)
-            self.result.sort(reverse=True)
+                    if tmp.left:
+                        stack.append(tmp.left)
+            self.result = self.result[::-1]
 
     def next(self) -> int:
         """
