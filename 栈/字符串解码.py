@@ -113,13 +113,15 @@ class Solution2:
                     num = num * 10 + int(s[index])
                 elif s[index] == '[':
                     tmp, index = help(s, index)
-                    res = num * tmp
+                    res = res + num * tmp
                     num = 0
                 elif s[index] == ']':
                     return res, index
                 else:
                     res += s[index]
                 index += 1
+            return res
+        return res
 
 
 
