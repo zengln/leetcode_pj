@@ -37,6 +37,13 @@
 # 输出："abccdcdcdxyz"
 #
 
+'''
+思路：
+栈内数据格式: 次数[字符串]
+遇到 ] 将上一个 [ 之内的字符串出栈,将字符串乘以出现次数后再入栈,
+直到栈中无数据
+无需重复字符, 直接在最终字符串后添加
+'''
 class Solution:
     def decodeString(self, s: str) -> str:
         result = ""
@@ -70,6 +77,52 @@ class Solution:
 
         return result
 
+'''
+思路:
+在栈中保存上一个字符串与当前字符串循环次数
+结果 = 上一个字符串 + 当前字符串循环次数*当前字符串
+'''
+class Solution1:
+    def decodeString(self, s: str) -> str:
+        num = 0
+        res = ""
+        stack = []
+        for x in s:
+            if x.isdigit():
+                num = num * 10 + int(x)
+            elif x == "[":
+                stack.append([num, res])
+                res, num = "", 0
+            elif x == "]":
+                tmp_num, tmp_res = stack.pop()
+                res = tmp_res + tmp_num * res
+            else:
+                res += x
+        return res
 
-s = Solution()
+'''
+递归
+'''
+class Solution2:
+    def decodeString(self, s: str) -> str:
+        num = 0
+        res = ""
+        def help(s,index):
+            while index < len(s):
+                if '0' <= s[index] <= '9':
+                    num = num * 10 + int(s[index])
+                elif s[index] == '[':
+                    tmp, index = help(s, index)
+                    res = num * tmp
+                    num = 0
+                elif s[index] == ']':
+                    return res, index
+                else:
+                    res += s[index]
+                index += 1
+
+
+
+
+s = Solution1()
 print(s.decodeString("2[2[y]pq4[2[jk]e1[f]]]"))
