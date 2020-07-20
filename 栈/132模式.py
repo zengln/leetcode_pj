@@ -42,17 +42,29 @@ from typing import List
 
 class Solution:
     def find132pattern(self, nums: List[int]) -> bool:
+        if len(nums) < 3:
+            return False
+
         mi = [nums[0]]
         stack = []
         for x in range(1, len(nums)):
-            mi.append(min(mi[-1], x))
+            mi.append(min(mi[-1], nums[x]))
 
         for x in range(len(nums)-1, -1, -1):
             if not stack:
                 stack.append(nums[x])
                 continue
 
+            while stack and stack[-1] <= mi[x]:
+                stack.pop()
 
+            if not stack:
+                stack.append(nums[x])
+            elif stack[-1] < nums[x]:
+                return True
+            else:
+                stack.append(nums[x])
+        return False
 
 s = Solution()
-s.find132pattern([-1, 3, 2, 0])
+print(s.find132pattern([-2,1,2,-2,1,2]))
