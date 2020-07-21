@@ -19,12 +19,12 @@ class Solution:
     def nextGreaterElements(self, nums: List[int]) -> List[int]:
         stack = []
         result = [-1] * len(nums)
-        for x in range(0, len(nums)):
-            while stack and stack[-1][0] < nums[x]:
+        for x in range(0, 2*len(nums)):
+            while stack and stack[-1][0] < nums[x%len(nums)]:
                 tmp = stack.pop()
-                result[tmp[1]] = nums[x]
+                result[tmp[1]] = nums[x%len(nums)]
 
-            stack.append([nums[x], x])
+            stack.append([nums[x%len(nums)], x % len(nums)])
         return result
 
 
