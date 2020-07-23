@@ -15,7 +15,7 @@
 from typing import List
 
 
-class Solution:
+class Solution1:
     def dailyTemperatures(self, T: List[int]) -> List[int]:
         result = [0] * len(T)
         stack = []
@@ -27,6 +27,20 @@ class Solution:
                 stack.pop()
 
             stack.append([T[index], index])
+
+        return result
+
+# 更小的空间复杂度，栈中只放index
+class Solution:
+    def dailyTemperatures(self, T: List[int]) -> List[int]:
+        result = [0] * len(T)
+        stack = []
+        for index in range(len(T)):
+            while stack and T[stack[-1]] < T[index]:
+                result[stack[-1]] = index - stack[-1]
+                stack.pop()
+
+            stack.append(index)
 
         return result
 
