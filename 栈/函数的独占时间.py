@@ -53,22 +53,14 @@ class Solution:
             tmp = stack.pop()
             time = dict[tmp[0]]
             if log[1] != "end":
-                if last_time == int(tmp[2]):
-                    dict[tmp[0]] = time + int(log[2]) - last_time
-                else:
-                    dict[tmp[0]] = time + int(log[2]) - last_time - 1
+                dict[tmp[0]] = time + int(log[2]) - last_time
                 dict.setdefault(log[0], 0)
                 stack.append(tmp)
                 stack.append(log)
+                last_time = int(log[2])
             else:
-                if last_time == int(tmp[2]):
-                    dict[tmp[0]] = time + int(log[2]) - last_time + 1
-                else:
-                    dict[tmp[0]] = time + int(log[2]) - last_time
-
-            last_time = int(log[2])
-            print(stack)
-            print(dict)
+                dict[tmp[0]] = time + int(log[2]) - last_time + 1
+                last_time = int(log[2]) + 1
 
         for i in range(n):
             result.append(dict[str(i)])
@@ -77,3 +69,4 @@ class Solution:
 
 s = Solution()
 print(s.exclusiveTime(3,["0:start:0","0:end:0","1:start:1","1:end:1","2:start:2","2:end:2","2:start:3","2:end:3"]))
+print(s.exclusiveTime(1,["0:start:0","0:start:2","0:end:5","0:start:6","0:end:6","0:end:7"]))
