@@ -30,16 +30,28 @@
 #  nums2.length == n
 
 
+def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
 
-def merge(self, nums1, m, nums2, n) -> None:
-    index= 0
-    n_index = 0
-    while n_index < n and index < m:
-        if nums1[index] <= nums2[n_index] <= nums1[index + 1]:
-            nums1.insert(index+1, nums2[n_index])
-            n_index += 1
+    temp = []
+    nums1_index = 0
+    nums2_index = 0
+    while nums1_index < m and nums2_index < n:
+        if nums1[nums1_index] < nums2[nums2_index]:
+            temp.append(nums1[nums1_index])
+            nums1_index += 1
+        elif nums1[nums1_index] > nums2[nums2_index]:
+            temp.append(nums2[nums2_index])
+            nums2_index += 1
         else:
-            index += 1
+            temp.append(nums2[nums2_index])
+            temp.append(nums1[nums1_index])
+            nums1_index += 1
+            nums2_index += 1
 
-    if n_index < n:
-        nums1 += nums2[n_index, n-1]
+    if nums1_index < m:
+        temp += nums1[nums1_index:m]
+    elif nums2_index < n:
+        temp += nums2[nums2_index:n]
+
+    for index in range(len(temp)):
+        nums1[index] = temp[index]
