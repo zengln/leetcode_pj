@@ -28,7 +28,7 @@ class Solution:
                     i += 1
                 else:
                     temp.append(nums[j])
-                    self.count += j - mid
+                    self.count += mid - i + 1
                     j += 1
 
 
