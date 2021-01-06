@@ -58,3 +58,20 @@ class Solution:
         cut(nums, 0, len(nums)-1)
         return self.count
 
+# 冒泡算法时间超了
+def reversePairs(self, nums: List[int]) -> int:
+        # 冒泡算法，时间超过
+        count = 0
+        for num_index in range(1, len(nums)):
+            temp = num_index
+            while temp >= 1:
+                if nums[temp] < nums[temp - 1]:
+                    count += 1
+                    temp_num = nums[temp]
+                    nums[temp] = nums[temp-1]
+                    nums[temp - 1] = temp_num
+                else:
+                    temp = 0
+
+                temp -= 1
+        return count
