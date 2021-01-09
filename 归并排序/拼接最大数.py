@@ -35,28 +35,37 @@
 class Solution:
     def maxNumber(self, nums1: List[int], nums2: List[int], k: int) -> List[int]:
 
-        def getMaxList(nums, num):
-            drop = len(nums) - num
+        def getMaxList(nums, length):
+            drop = len(nums) - length
             result = []
-            for temp in nums:
-                while result and drop and result[-1] < temp:
+            for num in nums:
+                while drop and result and result[-1] < num:
                     result.pop()
                     drop -= 1
 
-                result.append(temp)
-
-            return result[:k]
+                result.append(num)
+            return result[:length]
 
         def merge(nums1, nums2):
             result = []
-            while nums1 or nums2:
+            while nums1 and nums2:
                 bigger = nums1 if nums1 > nums2 else nums2
                 result.append(bigger[0])
                 bigger.pop(0)
 
+            if nums1:
+                result += nums1
+            else:
+                result += nums2
+
             return result
 
-        return max(merge(getMaxList(nums1, i), getMaxList(nums2, k - i)) for i in range(k + 1) if
-                   i <= len(nums1) and k - i <= len(nums2))
+        return max(merge(getMaxList(nums1, i), getMaxList(nums2, k - i)) for i in range(k + 1) if i <= len(nums1) and k - i <= len(nums2))
+
+
+
+
+
+
 
 
