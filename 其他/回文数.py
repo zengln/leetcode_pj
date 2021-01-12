@@ -39,3 +39,16 @@ class Solution:
 
         return True if result == x else False
 
+# 遍历一半x的解法
+'''
+                if x < 0 or (x % 10 == 0 and x != 0):
+            return False
+
+        result = 0
+        while x > result:
+            result = result * 10 + x % 10
+            x //= 10
+
+        return True if result == x or result // 10 == x else False
+'''
+
