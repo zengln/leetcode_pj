@@ -52,3 +52,11 @@ class Solution:
         return True if result == x or result // 10 == x else False
 '''
 
+# 字符串解法
+'''
+    def isPalindrome(self, x: int) -> bool:
+        x_str = str(x)
+        num = x_str.__len__()
+        return True if x_str[:num//2] == x_str[::-1][:num//2] else False
+'''
+
