@@ -110,3 +110,16 @@ class Solution:
         else:
             return 0
 
+
+# 正则表达式解法
+import re
+class Solution1:
+    def myAtoi(self, s: str) -> int:
+        matchs = re.match("^[\+\-]?\d+",s.lstrip())
+        if not matchs:
+            return 0
+        return max(min(int(matchs.group(1)), 1<<31 -1), -1<<31)
+
+
+# 状态机解法
+
