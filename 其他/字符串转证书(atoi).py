@@ -82,12 +82,12 @@ class Solution:
     def myAtoi(self, s: str) -> int:
         result_list = []
         for s_char in s:
-            if s_char == " " and not result_list:
-                continue
 
             if '0' <= s_char <= '9':
                 result_list.append(s_char)
-            elif not result_list and (s_char == "-" or s_char == "+"):
+            elif not result_list and s_char in ['+', '-', " "]:
+                if s_char == " ":
+                    continue
                 result_list.append(s_char)
             else:
                 break
