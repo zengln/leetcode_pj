@@ -67,4 +67,21 @@ class Solution:
 
         return result
 
+'''
+大佬解法
+51.47%
+9.02%
+直接使用整数
+        x_abs = abs(x)
+        result = 0
+
+        max_number = (1 << 31) - 1 if x > 0 else 1 << 31
+        while x_abs != 0:
+            result = result * 10 + x_abs % 10
+            if result > max_number:
+                return 0
+            x_abs = x_abs // 10
+
+        return result if x > 0 else - result
+'''
 
