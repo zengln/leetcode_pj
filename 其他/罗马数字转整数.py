@@ -85,14 +85,12 @@ class Solution:
 # 特殊组合不适用字典, 右边数大于左边,则左边的数变成负数，速度比上面快
 class Solution:
     def romanToInt(self, s: str) -> int:
-        Roman2Int = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
-        Int = 0
-        n = len(s)
-
-        for index in range(n - 1):
-            if Roman2Int[s[index]] < Roman2Int[s[index + 1]]:
-                Int -= Roman2Int[s[index]]
+        temp_dict = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000, "IV": 4, "IX": 9}
+        num = 0
+        for index in range(len(s) -1):
+            if temp_dict.get(s[index]) < temp_dict.get(s[index+1]):
+                num -= temp_dict.get(s[index])
             else:
-                Int += Roman2Int[s[index]]
+                num += temp_dict.get(s[index])
 
-        return Int + Roman2Int[s[-1]]
+        return num + temp_dict.get(s[-1])
