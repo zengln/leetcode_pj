@@ -87,3 +87,27 @@ class Solution:
                     elif nums[mid] < target:
                         left = mid + 1
         return -1
+
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        left, right = 0, len(nums) - 1
+        while left < right:
+            mid = (left + right) // 2
+            if nums[mid] < nums[right]:
+                #[left, mid],[mid + 1, right]
+                if nums[mid + 1] <= target <= nums[right]:
+                    left = mid + 1
+                else:
+                    right = mid
+            else:
+                #[left, mid],[mid+1, right]
+                if nums[mid] > nums[right]:
+                    if nums[left] <= target <= nums[mid]:
+                        right = mid
+                    else:
+                        left = mid + 1
+
+        if nums[left] == target:
+            return left
+
+        return -1
