@@ -66,6 +66,8 @@ class Solution:
                 if new_intervals[mid][0] >= temp:
                     right = mid - 1
                     result[index] = temp_map.get(new_intervals[mid][0])
+                    if new_intervals[mid][0] == temp:
+                        break
                 elif new_intervals[mid][0] < temp:
                     left = mid + 1
 
