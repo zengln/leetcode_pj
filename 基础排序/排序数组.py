@@ -66,3 +66,14 @@ class Solution:
 
         return nums
 
+
+# 选择排序
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        for index in range(len(nums)):
+            for i in range(index, len(nums)):
+                if nums[i] < nums[index]:
+                    nums[index], nums[i] = nums[i], nums[index]
+
+        return nums
+
