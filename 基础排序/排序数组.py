@@ -77,3 +77,14 @@ class Solution:
 
         return nums
 
+# 插入排序
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        for index in range(1, len(nums)):
+            temp = nums[index]
+            i = index - 1
+            while i >= 0 and nums[i] > temp:
+                nums[i + 1] = nums[i]
+                i -= 1
+            nums[i + 1] = temp
+        return nums
