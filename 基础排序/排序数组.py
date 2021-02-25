@@ -106,3 +106,41 @@ class Solution:
 
             gap = gap // 2
         return nums
+
+
+# 归并排序
+def mergeSort(left, right):
+    left_index = 0
+    right_index = 0
+    result = []
+
+    while left_index < len(left) and right_index < len(right):
+        if left[left_index] >= right[right_index]:
+            result.append(right[right_index])
+            right_index += 1
+        elif left[left_index] < right[right_index]:
+            result.append(left[left_index])
+            left_index += 1
+
+    if left_index == len(left):
+        result += right[right_index:]
+    elif right_index == len(right):
+        result += left[left_index:]
+
+    return result
+
+
+def MergeSort(nums):
+    if len(nums) == 1:
+        return nums
+
+    mid = len(nums) // 2
+    left = nums[:mid]
+    right = nums[mid:]
+
+    return mergeSort(MergeSort(left), MergeSort(right))
+
+
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        return MergeSort(nums)
