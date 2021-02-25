@@ -88,3 +88,21 @@ class Solution:
                 i -= 1
             nums[i + 1] = temp
         return nums
+
+
+# 希尔排序
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        gap = len(nums) // 2
+        while gap:
+            for index in range(gap, len(nums)):
+                temp = nums[index]
+                index = index - gap
+                while index >= 0 and temp < nums[index]:
+                    nums[index + gap] = nums[index]
+                    index -= gap
+
+                nums[index + gap] = temp
+
+            gap = gap // 2
+        return nums
