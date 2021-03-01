@@ -61,3 +61,15 @@ class Solution:
         return len(nums)
 
 
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        index_slow = 0
+        index_fast = 0
+        for index_fast in range(len(nums)):
+            if nums[index_slow] == nums[index_fast]:
+                index_fast += 1
+            else:
+                nums[index_slow + 1] = nums[index_fast]
+                index_slow += 1
+
+        return index_slow + 1
