@@ -27,3 +27,19 @@ class Solution:
                 if nums[j] == 0:
                     nums[j], nums[j+1] = nums[j+1], nums[j]
 
+
+# 双指针, 移动法
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        num = 0
+        for index in range(len(nums)):
+            if nums[index]:
+                nums[num] = nums[index]
+                num += 1
+
+        for index in range(num, len(nums)):
+            nums[index] = 0
+
