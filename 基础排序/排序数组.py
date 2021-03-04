@@ -144,3 +144,43 @@ def MergeSort(nums):
 class Solution:
     def sortArray(self, nums: List[int]) -> List[int]:
         return MergeSort(nums)
+
+#快排
+def quickSort(nums, left, right):
+    if left >= right:
+        return nums
+
+    # 左右指针
+    left_index = left
+    right_index = right
+
+    # 基准值
+    temp = nums[left]
+
+    pre_index = left_index
+
+    while left_index < right_index:
+        if pre_index == left_index and temp > nums[right_index]:
+            nums[pre_index] = nums[right_index]
+            pre_index = right_index
+            left_index += 1
+        elif pre_index == left_index and temp <= nums[right_index]:
+            right_index -= 1
+        elif pre_index == right_index and temp > nums[left_index]:
+            left_index += 1
+        elif pre_index == right_index and temp <= nums[left_index]:
+            nums[pre_index] = nums[left_index]
+            pre_index = left_index
+            right_index -= 1
+
+    nums[left_index] = temp
+
+    quickSort(nums, left, left_index)
+    quickSort(nums, left_index+1, right)
+
+    return nums
+
+
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        return quickSort(nums, 0, len(nums) - 1)
