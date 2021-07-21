@@ -41,7 +41,7 @@
 #
 #  Related Topics 贪心 数组 动态规划
 
-class Solution:
+class Solution2:
     def maxProfit(self, prices: List[int]) -> int:
         # 贪心
         result = 0
@@ -51,4 +51,35 @@ class Solution:
                 result += prices[i] - prices[i - 1]
 
         return result
+
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        '''
+        动态规划：
+        在第N天，最大的利润为前一天最大的利润，加上今天操作会取得的最大利润
+        第N天分为两种情况：
+        手上有股票,手上有股票,那么前一天可能：
+        也有股票，今天没卖
+        没有股票，今天买了,所以利润要减去今天买的金额
+        取这两种情况下最大的利润值
+        temp[N][1] = max(temp[N-1][1],temp[N-1][0]-price[N])
+        手上没股票，那么前一天可能：
+        也没股票，今天没买
+        有股票，今天卖了
+        temp[N][0] = max(temp[N-1][0], temp[N-1][1]+price[N])
+
+        边界值第一天
+        买股票 temp[0][1] = -price[0]
+        不买 temp[0][0] = 0
+        '''
+        length = len(prices)
+        result = [[-1, -1] for _ in range(length)]
+        result[0][1] = -prices[0]
+        result[0][0] = 0
+        for i in range(1, length):
+            result[i][0] = max(result[i-1][0], result[i-1][1]+prices[i])
+            result[i][1] = max(result[i-1][1], result[i-1][0]-prices[i])
+
+        return result[length-1][0]
 
