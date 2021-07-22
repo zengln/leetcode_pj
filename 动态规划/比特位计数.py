@@ -32,3 +32,52 @@ class Solution:
             result.append(temp.count('1'))
         return result
 
+
+'''
+奇偶找规律
+奇数个数为上一个偶数的个数+1
+偶数个数与除以2的偶数个数相等，除以2等于右移一位，去掉最后的0，1的个数不变
+'''
+class Solution2:
+    def countBits(self, n: int) -> List[int]:
+        result = [0]
+        for i in range(1, n+1):
+            if i % 2 == 0:
+                result.append(result[i//2])
+            else:
+                result.append(result[i-1]+1)
+        return result
+
+
+"""
+奇偶进阶写法
+"""
+class Solution5:
+    def countBits(self, n: int) -> List[int]:
+        bits = [0]
+        for i in range(1, n + 1):
+            bits.append(bits[i >> 1] + (i & 1))
+        return bits
+
+'''
+知道之后会很轻松的知识：
+x&(x-1)会将x最右边的一个1变为0
+所以一直重复这个操作，直到x=0，统计重复了几次
+就能算出x里1的个数
+这个方法，不能算统计x里0的个数
+'''
+class Solution3:
+    def countBits(self, n: int) -> List[int]:
+        result = []
+        for i in range(n+1):
+            result.append(self.fun(i))
+
+        return result
+
+    def fun(self, num):
+        count = 0
+        while num > 0:
+            num &= (num-1)
+            count += 1
+        return count
+
