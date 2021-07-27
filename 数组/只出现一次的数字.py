@@ -34,4 +34,16 @@ class Solution:
 
         return tmp[-1]
 
+"""
+^异或操作
+0^a=a
+a^a=0
+只有一个数出现一次，其他数都出现两次，所以其他数异或后都会归0，剩下的一个数与0异或等于要找的数
+"""
 
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        result = 0
+        for i in nums:
+            result ^= i
+        return result
