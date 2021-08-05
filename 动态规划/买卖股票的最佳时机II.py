@@ -83,3 +83,24 @@ class Solution:
 
         return result[length-1][0]
 
+# 第二次做的激发
+class Solution:
+    """
+    最大利润 dp[i]
+    第i天有股票：
+    前一天有股票 dp[i] = dp[i-1]
+    前一天没股票  dp[i] = dp[i-1] - prices[i]
+
+    第i-1没有股票
+    前一天有股票 dp[i] = dp[i-1] + prices[i]
+    前一天没股票 dp[i] = dp[i-1]
+    """
+    def maxProfit(self, prices: List[int]) -> int:
+        result_y = [0] * len(prices)
+        result_n = [0] * len(prices)
+        result_y[0] = -prices[0]
+        result_n[0] = 0
+        for i in range(1, len(prices)):
+            result_y[i] = max(result_y[i-1], result_n[i-1] - prices[i])
+            result_n[i] = max(result_n[i-1], result_y[i-1] + prices[i])
+        return result_n[-1]
