@@ -61,3 +61,17 @@ class Solution:
 后续出现更小的买入价，则替换买入价，找到这个买入价格之后的最大利润，没有则之前计算利润为最大利润。
 
 '''
+# 更新第二次做的解法
+class Solution:
+    """
+    找到最大利润
+    当天卖出 = max(前一天最大的卖出利润，当天卖出利润)
+    dp[i] = max(dp[i-1], prices[i] - buy)
+    """
+    def maxProfit(self, prices: List[int]) -> int:
+        result = [0] * len(prices)
+        buy = prices[0]
+        for i in range(1, len(prices)):
+            result[i] = max(result[i-1], prices[i] - buy)
+            buy = min(prices[i], buy)
+        return result[-1]
