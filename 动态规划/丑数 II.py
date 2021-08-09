@@ -47,6 +47,7 @@ class Solution:
         p2 = 0
         p3 = 0
         p5 = 0
+        # 加上一个while是为了防止出现重复偶数的情况，例如6：2X3 和 3X2都会出现一次，但是只能要一个
         for i in range(1, n):
             temp = 1
             while temp in result:
@@ -60,3 +61,22 @@ class Solution:
             result.append(temp)
         return result[-1]
 
+
+# 其他人解决重复出现数字的问题写法
+class Solution:
+    def nthUglyNumber(self, n: int) -> int:
+        dp = [0] * (n + 1)
+        dp[1] = 1
+        p2 = p3 = p5 = 1
+
+        for i in range(2, n + 1):
+            num2, num3, num5 = dp[p2] * 2, dp[p3] * 3, dp[p5] * 5
+            dp[i] = min(num2, num3, num5)
+            if dp[i] == num2:
+                p2 += 1
+            if dp[i] == num3:
+                p3 += 1
+            if dp[i] == num5:
+                p5 += 1
+
+        return dp[n]
