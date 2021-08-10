@@ -50,3 +50,17 @@ class Solution:
                     result.append(last[j-1] + last[j])
             last = result
         return last
+
+class Solution:
+    def getRow(self, rowIndex: int) -> List[int]:
+        result = []
+        for i in range(rowIndex+1):
+            for j in range(i, -1, -1):
+                if j == i:
+                    result.append(1)
+                elif j == 0:
+                    if len(result) == 0:
+                        result.append(1)
+                else:
+                    result[j] += result[j-1]
+        return result
