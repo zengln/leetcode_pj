@@ -38,3 +38,15 @@ class Solution:
         return last
 
 
+class Solution:
+    def getRow(self, rowIndex: int) -> List[int]:
+        last = []
+        for i in range(rowIndex+1):
+            result = []
+            for j in range(i+1):
+                if j in [0, i]:
+                    result.append(1)
+                else:
+                    result.append(last[j-1] + last[j])
+            last = result
+        return last
