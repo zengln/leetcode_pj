@@ -41,7 +41,7 @@
 #  Related Topics 数组 矩阵 前缀和
 #  👍 92 👎 0
 
-# 暴力破解
+# 暴力破解，时间复杂度 N的四次方
 class Solution:
     def matrixBlockSum(self, mat: List[List[int]], k: int) -> List[List[int]]:
         result = []
@@ -55,3 +55,46 @@ class Solution:
             result.append(temp)
         return result
 
+
+# 改进，时间复杂度N的平方
+class Solution:
+    """
+    使用一个二维数组mat_sum，保存从左上角(0,0)到当前位置 mat[i][j]的和
+    例如i=1,j=1,那么
+    mat_sum[i][1] = mat[0][0]+mat[0][1]+mat[1][0]+mat[1][1]
+
+    那么提意需要计算的某个和一定小于等于mat_sum[i][j]
+    如果小于：
+    result[i][j] = mat_sum[i+k][j+k] + mat_sum[i-k-1][j-k-1] - mat_sum[i-k-1][j+k] - mat_sum[i+k][j-k-1]
+    """
+    def matrixBlockSum(self, mat: List[List[int]], k: int) -> List[List[int]]:
+        mat_sum = []
+        for i in range(len(mat)):
+            mat_sum.append([0] * len(mat[i]))
+            mat_sum[i][0] = mat_sum[i-1][0] + mat[i][0]
+            for j in range(len(mat[i])):
+                if i == 0 and j == 0:
+                    mat_sum[0][0] = mat[0][0]
+                elif i == 0:
+                    mat_sum[i][j] = mat_sum[i][j-1] + mat[i][j]
+                elif j == 0:
+                    mat_sum[i][j] = mat_sum[i-1][j] + mat[i][j]
+                else:
+                    mat_sum[i][j] = mat_sum[i-1][j] + mat_sum[i][j-1] - mat_sum[i-1][j-1] + mat[i][j]
+        print(mat_sum)
+        result = []
+        for i in range(len(mat)):
+            result.append(list())
+
+        for i in range(len(mat)):
+            for j in range(len(mat[i])):
+                if i - k <= 0 and j - k <= 0:
+                    temp = mat_sum[min(i+k, len(mat)-1)][min(j+k, len(mat[i])-1)]
+                elif i - k > 0 and j - k <= 0:
+                    temp = mat_sum[min(i+k, len(mat)-1)][min(j+k, len(mat[i])-1)] - mat_sum[i-k-1][min(j+k, len(mat[i])-1)]
+                elif i - k <= 0 and j - k > 0:
+                    temp = mat_sum[min(i+k, len(mat)-1)][min(j+k, len(mat[i])-1)] - mat_sum[min(i+k, len(mat)-1)][j-k-1]
+                else:
+                    temp = mat_sum[min(i+k, len(mat)-1)][min(j+k, len(mat[i])-1)] - mat_sum[min(i+k, len(mat)-1)][j-k-1] - mat_sum[i-k-1][min(j+k, len(mat[i])-1)] + mat_sum[i-k-1][j-k-1]
+                result[i].append(temp)
+        return result
