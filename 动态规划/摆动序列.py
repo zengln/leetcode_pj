@@ -97,3 +97,35 @@ class Solution:
 
         return max_value
 
+class Solution:
+    """
+    nums[i]可能存在两个情况
+    1. 当前比上一个小
+    2. 当前比上一个大
+    所以需要两个数组，分别保存两种情况
+    result_large[i]表示到长度到i的数组，最长上升子序列(最后一个元素上升)
+    result_small[i]表示到长度到i的数组，最长下降子序列(最后一个元素下降)
+    那么就有
+    nums[i] >= nums[i-1]
+    result_large[i] = max(result_large[i-1], result_small[i-1]+1)
+    result_small[i] = result_small[i-1]
+
+    nums[i] < nums[i-1]
+    result_large[i] = result_large[i-1]
+    result_small[i] = max(result_small[i-1], result_large[i-1]+1)
+    """
+    def wiggleMaxLength(self, nums: List[int]) -> int:
+        n = len(nums)
+        result_large = [1] * n
+        result_small = [1] * n
+        for i in range(1, n):
+            if nums[i] > nums[i-1]:
+                result_large[i] = max(result_large[i - 1], result_small[i - 1] + 1)
+                result_small[i] = result_small[i - 1]
+            elif nums[i] < nums[i-1]:
+                result_large[i] = result_large[i - 1]
+                result_small[i] = max(result_small[i - 1], result_large[i - 1] + 1)
+            else:
+                result_large[i] = result_large[i-1]
+                result_small[i] = result_small[i-1]
+        return max(result_large[-1], result_small[-1])
