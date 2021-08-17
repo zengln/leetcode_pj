@@ -77,3 +77,22 @@ class Solution2:
                 return True
         return False
 
+# 又做一次，好像思路一样的
+class Solution:
+    """
+    s[0:i]如果为t的子序列, 那么s[0:i-1]必定是t的子序列
+    所以
+    dp[i] = dp[i-1] and (s[i] == t[j])
+    """
+    def isSubsequence(self, s: str, t: str) -> bool:
+        if len(s) == 0:
+            return True
+        result = [False] * len(s)
+        index_t = 0
+        index_s = 0
+        while index_t < len(t) and index_s < len(s):
+            if s[index_s] == t[index_t]:
+                result[index_s] = True
+                index_s += 1
+            index_t += 1
+        return result[-1]
