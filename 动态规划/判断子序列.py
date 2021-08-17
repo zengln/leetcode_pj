@@ -96,3 +96,33 @@ class Solution:
                 index_s += 1
             index_t += 1
         return result[-1]
+
+
+class Solution:
+    """
+    动态规划思路：
+    使用一个二维数组表示dp[i][j]表示i位置后第一次出现字符j的位置
+    后续判断子序列，就通过这个二维数组判断
+    """
+
+    def isSubsequence(self, s: str, t: str) -> bool:
+        if len(s) == 0:
+            return True
+        if len(t) == 0:
+            return False
+        result = [[-1] * 26 for _ in range(len(t) + 1)]
+
+        for i in range(len(t) - 1, -1, -1):
+            for j in range(26):
+                if ord(t[i]) == ord('a') + j:
+                    result[i][j] = i
+                else:
+                    result[i][j] = result[i + 1][j]
+
+        index = 0
+        for s_chr in s:
+            temp = ord(s_chr) - ord('a')
+            if result[index][temp] == -1:
+                return False
+            index = result[index][temp] + 1
+        return True
