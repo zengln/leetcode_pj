@@ -55,3 +55,19 @@ class Solution:
             if nums[i]:
                 nums[i], nums[j] = nums[j], nums[i]
                 j += 1
+
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        index = 0
+        count = 0
+        while index < len(nums) - count:
+            if nums[index] != 0:
+                index += 1
+                continue
+
+            for i in range(index+1, len(nums)):
+                nums[i], nums[i-1] = nums[i-1], nums[i]
+            count += 1
