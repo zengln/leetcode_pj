@@ -32,3 +32,18 @@ class Solution:
             s_list[index] = s_list[index][::-1]
         return ' '.join(s_list)
 
+# 双指针？
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        s_list = s.split(" ")
+        for index in range(len(s_list)):
+            index_left = 0
+            index_right = len(s_list[index]) - 1
+            temp = list(s_list[index])
+            while index_left < index_right:
+                temp[index_left], temp[index_right] = temp[index_right], temp[index_left]
+                index_left += 1
+                index_right -= 1
+
+            s_list[index] = ''.join(temp)
+        return ' '.join(s_list)
