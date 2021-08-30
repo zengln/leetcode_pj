@@ -39,6 +39,10 @@
 
 
 class Solution:
+    """
+    深度优先，从起始点开始, 上下左右开始遍历，如果当前点在矩阵范围内，且颜色不等于替换色，那么当前点就是需要替换的点
+    先替换颜色，然后再次开始上下左右遍历。(这样可以防止一个点被重复遍历)
+    """
     def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
         temp = image[sr][sc]
         r, c = len(image), len(image[0])
@@ -53,4 +57,30 @@ class Solution:
             dfs(sr, sc)
         return image
 
+import collections
 
+class Solution:
+    """
+    广度优先：从初始点开始，上下左右遍历，确认符合条件的点后，将其加入到队列中，然后将当前点更改为新颜色
+    """
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+        temp = image[sr][sc]
+        r, c = len(image), len(image[0])
+
+        if temp == newColor:
+            return image
+        image[sr][sc] = newColor
+        queue = collections.deque([(sr, sc)])
+        while queue:
+            x, y = queue.popleft()
+            for x, y in [(x-1, y), (x+1, y), (x, y+1), (x, y-1)]:
+                if 0 <= x < r and 0 <= y < c and image[x][y] == temp:
+                    queue.append((x, y))
+                    image[x][y] = newColor
+            print(queue)
+        return image
+"""
+目前观察到的深度遍历与广度遍历的区别：
+深度使用递归，从一个点开始一直往下
+广度使用队列，走完一个点后，将当前点关联的数据暂存在队列中，按照进入队列的顺序往下走
+"""
