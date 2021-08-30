@@ -65,10 +65,8 @@ class Solution:
         return dfs(root1, root2)
 
 import collections
-class Solution2:
-   """
-    广度优先
-    """
+class Solution:
+
     def mergeTrees(self, root1: TreeNode, root2: TreeNode) -> TreeNode:
         t1 = root1
         t2 = root2
@@ -111,4 +109,3 @@ class Solution2:
                 elif right2:
                     node.right = right2
         return merged
-
