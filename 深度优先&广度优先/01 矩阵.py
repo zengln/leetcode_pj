@@ -47,6 +47,10 @@
 class Solution:
     """
     广度优先
+    思路如下：
+    每个点只从上下左右扩散4个点，这个4个点里存在没有0的值，则将那个点的值到0的距离设置为当前点到0的距离+1，
+    并且将当前点标记为已经扩散过
+    q先将所有0的地址放入了队列，所以每个新点到0的距离一定是最小的
     """
     def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
         m, n = len(matrix), len(matrix[0])
