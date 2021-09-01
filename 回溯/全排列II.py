@@ -65,3 +65,31 @@ class Solution:
         dfs(nums, temp, use, result)
         return result
 
+class Solution:
+    """
+    在递归的过程中去掉不需要的解
+    """
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        def dfs(nums, temp, use, result):
+            if len(nums) == len(temp):
+                result.append(temp[:])
+                return
+            for i in range(len(nums)):
+                if use[i]:
+                    continue
+                elif nums[i] == nums[i-1] and not use[i-1] and i > 0:
+                    continue
+
+                use[i] = True
+                temp.append(nums[i])
+
+                dfs(nums, temp, use, result)
+
+                use[i] = False
+                temp.pop(-1)
+
+        temp = []
+        result = []
+        use = [False for _ in range(len(nums))]
+        dfs(sorted(nums), temp, use, result)
+        return result
