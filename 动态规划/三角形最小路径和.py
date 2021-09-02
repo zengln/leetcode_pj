@@ -77,3 +77,18 @@ class Solution:
         return min(result[-1])
 
 
+# 自顶向下，使用一维数组的优化写法
+class Solution:
+    def minimumTotal(self, triangle: List[List[int]]) -> int:
+        n = len(triangle)
+        result = [0] * n
+        result[0] = triangle[0][0]
+        for i in range(1, n):
+            for j in range(len(triangle[i])-1, -1, -1):
+                if j == len(triangle[i]) - 1:
+                    result[j] = result[j-1] + triangle[i][j]
+                elif j == 0:
+                    result[0] = result[0] + triangle[i][j]
+                else:
+                    result[j] = min(result[j], result[j-1]) + triangle[i][j]
+        return min(result)
