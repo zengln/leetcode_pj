@@ -75,3 +75,6 @@ class Solution:
         return False
 
 
+class Solution:
+    def isPowerOfTwo(self, n: int) -> bool:
+        return n > 0 and (n & (n - 1)) == 0
