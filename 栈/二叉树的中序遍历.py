@@ -65,3 +65,19 @@ class Solution1:
 class Solution2:
     def inorderTraversal(self, root: TreeNode) -> List[int]:
         pass
+
+class Solution:
+    def inorderTraversal(self, root: TreeNode) -> List[int]:
+        def dfs(result, root):
+            if root.left:
+                dfs(result, root.left)
+
+            result.append(root.val)
+
+            if root.right:
+                dfs(result, root.right)
+
+        result = []
+        if root:
+            dfs(result, root)
+        return result
