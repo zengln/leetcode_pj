@@ -69,3 +69,12 @@ class Solution:
                 count += 1
         return count
 
+
+class Solution:
+    """
+    位运算，1<<i
+    1向左移动i位
+    """
+    def hammingWeight(self, n: int) -> int:
+        result = sum(1 for i in range(32) if n & (1 << i))
+        return result
