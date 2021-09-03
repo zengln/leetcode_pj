@@ -76,5 +76,8 @@ class Solution:
 
 
 class Solution:
+    """
+    n&(n-1) 如果n的二进制只有一个1(即2的幂)，那么n&(n-1)的结果中1的个数为0
+    """
     def isPowerOfTwo(self, n: int) -> bool:
         return n > 0 and (n & (n - 1)) == 0
