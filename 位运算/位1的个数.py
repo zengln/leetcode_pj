@@ -78,3 +78,14 @@ class Solution:
     def hammingWeight(self, n: int) -> int:
         result = sum(1 for i in range(32) if n & (1 << i))
         return result
+
+class Solution:
+    """
+    n&(n-1)将n的最后一个1置为0，当所有1变成0也就是n为0时，统计转了多少次，次数既为答案
+    """
+    def hammingWeight(self, n: int) -> int:
+        result = 0
+        while n:
+            n &= (n-1)
+            result += 1
+        return result
