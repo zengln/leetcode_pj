@@ -76,3 +76,49 @@ class Solution:
         return [left, right]
 
 
+class Solution:
+    """
+    先找到一个target，
+    再以taget为界，分为两个数组
+    分别再两个数组中找到初始与截止位置
+    """
+
+
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        left = 0
+        right = len(nums) - 1
+        if len(nums) == 0 or nums[left] > target or nums[right] < target:
+            return [-1, -1]
+
+        while left < right:
+            mid = (left + right) // 2
+            if nums[mid] > target:
+                right = mid - 1
+            elif nums[mid] < target:
+                left = mid + 1
+            else:
+                right = left = mid
+
+        if nums[left] != target:
+            return [-1, -1]
+
+        temp_left = 0
+        temp_right = left
+        while temp_left < temp_right:
+            mid = (temp_left + temp_right) // 2
+            if nums[mid] < target:
+                temp_left = mid + 1
+            else:
+                temp_right = mid
+
+        start = temp_left
+        temp_left = left
+        temp_right = len(nums) - 1
+        while temp_left < temp_right:
+            mid = (temp_left + temp_right + 1) // 2
+            if nums[mid] > target:
+                temp_right = mid - 1
+            else:
+                temp_left = mid
+        end = temp_left
+        return [start, end]
