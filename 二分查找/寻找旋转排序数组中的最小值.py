@@ -83,3 +83,21 @@ class Solution:
                 right = mid
             elif nums[mid] > nums[right]:
                 left = mid + 1
+
+
+class Solution:
+    """
+    nums[mid]<nums[right]
+    通过right找到最小值，然后left不断靠近，直到left=right
+    """
+
+    def findMin(self, nums: List[int]) -> int:
+        left = 0
+        right = len(nums) - 1
+        while left < right:
+            mid = (left + right) // 2
+            if nums[mid] < nums[right]:
+                right = mid
+            else:
+                left = mid + 1
+        return nums[left]
