@@ -40,7 +40,7 @@
 #  -105 <= nums[i] <= 105
 #
 #  Related Topics 数组 双指针 排序
-
+from typing import List
 class Solution:
     """
     数组先排序, 排序完成后再使用双指针找到另外另个数
@@ -66,13 +66,14 @@ class Solution:
                     left += 1
         return result
 
+class Solution:
    """
     因为先排序了所以第一个数大于0后，后面两个数必定大于0，没有必须再继续，直接返回
     当第一个数遍历时，与上一个数相等，直接跳过这个数避免重复结果
     while里两个指针也是类似，当left的值与left+1的值相等时，找到第一个不等于left的值
     right的值与right-1相等时，找到第一个不等于right的值
     """
-    def threeSum(self, nums: List[int]) -> List[List[int]]:
+   def threeSum(self, nums: List[int]) -> List[List[int]]:
         result = []
         temp_nums = sorted(nums)
         # print(temp_nums)
