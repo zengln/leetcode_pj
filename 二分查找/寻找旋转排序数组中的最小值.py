@@ -61,3 +61,43 @@ class Solution:
                 left = mid
             elif nums[mid] < nums[right]:
                 right = mid - 1
+
+
+class Solution:
+    """
+    通过二分法，找到断层前一个数大于后一个数，然后返回
+    """
+
+    def findMin(self, nums: List[int]) -> int:
+        if nums[0] <= nums[-1]:
+            return nums[0]
+
+        left = 0
+        right = len(nums) - 1
+        while left < right:
+            mid = (left + right) // 2
+            if nums[mid] < nums[mid - 1] or nums[mid + 1] < nums[mid]:
+                return min(nums[mid], nums[mid + 1], nums[mid - 1])
+
+            if nums[mid] < nums[left]:
+                right = mid
+            elif nums[mid] > nums[right]:
+                left = mid + 1
+
+
+class Solution:
+    """
+    nums[mid]<nums[right]
+    通过right找到最小值，然后left不断靠近，直到left=right
+    """
+
+    def findMin(self, nums: List[int]) -> int:
+        left = 0
+        right = len(nums) - 1
+        while left < right:
+            mid = (left + right) // 2
+            if nums[mid] < nums[right]:
+                right = mid
+            else:
+                left = mid + 1
+        return nums[left]
