@@ -71,3 +71,26 @@ class Solution:
                 temp.insert(left, nums[i])
 
         return result
+
+class Solution:
+    """
+    通过二分法，找到其中一个峰值即可,普通峰值:左右两边的数都比当前数小
+    峰值在边界的情况, 让左右指针返回
+    当数据小于3个，直接找到最大值，通过index返回
+    """
+    def findPeakElement(self, nums: List[int]) -> int:
+        if len(nums) < 3:
+            return nums.index(max(nums))
+        left = 0
+        right = len(nums) - 1
+        while left < right:
+            mid = (left + right) // 2
+            if nums[mid-1] < nums[mid] and nums[mid] > nums[mid+1]:
+                return mid
+            # 右边有上升
+            elif nums[mid] < nums[mid+1]:
+                left = mid + 1
+            # 右边在下降
+            else:
+                right = mid
+        return left
